@@ -70,7 +70,7 @@ float GetCost(Arrow arrow) //Calculates the cost of a full Arrow Order
 {
     float finalCost = 0;
 
-  switch (arrow._arrowHead)
+  switch (arrow.getArrowHead)
     {
         case Arrow.ArrowHead.Steel:
             finalCost += 10;
@@ -85,7 +85,7 @@ float GetCost(Arrow arrow) //Calculates the cost of a full Arrow Order
             finalCost += 0;
             break;
     }
-    switch (arrow._fletching)
+    switch (arrow.getFletching)
     {
         case Arrow.Fletching.GooseFeathers:
             finalCost += 3;
@@ -100,16 +100,17 @@ float GetCost(Arrow arrow) //Calculates the cost of a full Arrow Order
             finalCost += 0;
             break;
     }
-    finalCost = finalCost + Convert.ToSingle(arrow._lengthInCM) * 0.05f;
+    finalCost = finalCost + Convert.ToSingle(arrow.getLengthInCM) * 0.05f;
     return finalCost;
 }
 
 // Classes and Enums go here
 class Arrow
 {
-    public uint _lengthInCM;
-    public ArrowHead _arrowHead;
-    public Fletching _fletching;
+    //Fields
+    private uint _lengthInCM;
+    private ArrowHead _arrowHead;
+    private Fletching _fletching;
     public enum ArrowHead
     {
         Steel,
@@ -122,7 +123,10 @@ class Arrow
         TurkeyFeathers,
         GooseFeathers
     }
-    
+    //Getters
+    public uint getLengthInCM;
+    public ArrowHead getArrowHead;
+    public Fletching getFletching;
 
     public Arrow(uint lengthInCM, ArrowHead arrowHead, Fletching fletching)
     {
