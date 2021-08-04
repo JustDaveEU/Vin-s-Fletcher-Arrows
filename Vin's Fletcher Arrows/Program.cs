@@ -6,19 +6,53 @@ Console.Clear();
 
 Console.Title = "Vin's Fletcher Arrows";
 
+//Variables go here
+
+Arrow orderedArrow = null;
+string orderType = null;
+
 //Main goes here
 
-//Create a new Arrow based on Requests
+Console.WriteLine("Welcome to Vin Fletcher's Arrow Shop. What would you like to buy today?");
+Console.WriteLine("1: A Beginner Arrow (With a wooden arrowhead, goose feather fletching and sporting a 75cm shaft");
+Console.WriteLine("2: An Elite Arrow (With a steel arrowshead, plastic fletching and sporting a 95cm shaft!)");
+Console.WriteLine("3: A Marksman Arrow (With a steel arrowhead, goose feather fletching and sporting a 65cm shaft!)");
+Console.WriteLine("4: A custom order (Specifications provided BY YOU!");
+string request = Console.ReadLine();
 
-ArrowHead orderedArrowHead = AskForArrowHead("What would you want your Arrowhead made of? Wood, Steel or Obsidian?");
-Fletching orderedFletching = AskForFletching("What kind of fletching would you like? Plastic, Turkey Feathers or Goose Fethers?");
-
-//Assemble Arrow and get length
-Arrow orderedArrow = new Arrow(GetUIntegerRange("How long should the Arrow be? Between 60 and 100.", 60, 100), orderedArrowHead, orderedFletching);
+switch (request)
+{
+    case "1":
+    case "Beginner Arrow":
+        orderedArrow = Arrow.CreateBeginnerArrow();
+        orderType = "Beginner Arrow";
+        break;
+    case "2":
+    case "Elite Arrow":
+        orderedArrow = Arrow.CreateEliteArrow();
+        orderType = "Elite Arrow";
+        break;
+    case "3":
+    case "Marksman Arrow":
+        orderedArrow = Arrow.CreateMarksmanArrow();
+        orderType = "Marksman Arrow";
+        break;
+    case "4":
+    case "custom order":
+        //Create a new Arrow based on Requests
+        ArrowHead orderedArrowHead = AskForArrowHead("What would you want your Arrowhead made of? Wood, Steel or Obsidian?");
+        Fletching orderedFletching = AskForFletching("What kind of fletching would you like? Plastic, Turkey Feathers or Goose Fethers?");
+        //Get Length and assemble arrow
+        orderedArrow = new Arrow(GetUIntegerRange("How long should the Arrow be? Between 60 and 100.", 60, 100), orderedArrowHead, orderedFletching);
+        orderType = "custom order";
+        break;
+}
 //Find out total Cost
+
 float orderCost = GetCost(orderedArrow);
 //Inform Customer
-Console.WriteLine($"The total Cost of your Arrow will be {orderCost} Gold. Thank you for Ordering from Fletcher's Arrows!");
+
+Console.WriteLine($"The total Cost of your {orderType} will be {orderCost} Gold. Thank you for Ordering from Fletcher's Arrows!");
 
 //Methods go here
 
@@ -137,5 +171,22 @@ class Arrow
         _lengthInCM = lengthInCM;
         _arrowHead = arrowHead;
         _fletching = fletching;
+    }
+
+    //Premade Orders
+    public static Arrow CreateEliteArrow()
+    {
+        Arrow EliteArrow = new Arrow(95, ArrowHead.Steel, Fletching.Plastic);
+        return EliteArrow;
+    }
+    public static Arrow CreateBeginnerArrow()
+    {
+        Arrow BeginnerArrow = new Arrow(75, ArrowHead.Wood, Fletching.GooseFeathers);
+        return BeginnerArrow;
+    }
+    public static Arrow CreateMarksmanArrow()
+    {
+        Arrow MarksmanArrow = new Arrow(65, ArrowHead.Steel, Fletching.GooseFeathers);
+        return MarksmanArrow;
     }
 }
