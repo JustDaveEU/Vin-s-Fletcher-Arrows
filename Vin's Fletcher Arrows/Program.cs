@@ -18,7 +18,7 @@ Arrow orderedArrow = new Arrow(GetUIntegerRange("How long should the Arrow be? B
 //Find out total Cost
 float orderCost = GetCost(orderedArrow);
 //Inform Customer
-Console.WriteLine($"The total Cost of your Arrow will be {orderCost} Gold. Thank you for Ordering from Fletche's Arrows!");
+Console.WriteLine($"The total Cost of your Arrow will be {orderCost} Gold. Thank you for Ordering from Fletcher's Arrows!");
 
 //Methods go here
 
@@ -70,7 +70,7 @@ float GetCost(Arrow arrow) //Calculates the cost of a full Arrow Order
 {
     float finalCost = 0;
 
-  switch (arrow.getArrowHead)
+  switch (arrow.ArrowHeeadType)
     {
         case Arrow.ArrowHead.Steel:
             finalCost += 10;
@@ -85,7 +85,7 @@ float GetCost(Arrow arrow) //Calculates the cost of a full Arrow Order
             finalCost += 0;
             break;
     }
-    switch (arrow.getFletching)
+    switch (arrow.FletchingType)
     {
         case Arrow.Fletching.GooseFeathers:
             finalCost += 3;
@@ -100,7 +100,7 @@ float GetCost(Arrow arrow) //Calculates the cost of a full Arrow Order
             finalCost += 0;
             break;
     }
-    finalCost = finalCost + Convert.ToSingle(arrow.getLengthInCM) * 0.05f;
+    finalCost = finalCost + Convert.ToSingle(arrow.LengthInCM) * 0.05f;
     return finalCost;
 }
 
@@ -111,6 +111,8 @@ class Arrow
     private uint _lengthInCM;
     private ArrowHead _arrowHead;
     private Fletching _fletching;
+
+    //Enums
     public enum ArrowHead
     {
         Steel,
@@ -123,11 +125,13 @@ class Arrow
         TurkeyFeathers,
         GooseFeathers
     }
-    //Getters
-    public uint getLengthInCM;
-    public ArrowHead getArrowHead;
-    public Fletching getFletching;
+   
+    //Properties
+    public uint LengthInCM => _lengthInCM;
+    public ArrowHead ArrowHeeadType => _arrowHead;
+    public Fletching FletchingType => _fletching; 
 
+    //Constructor
     public Arrow(uint lengthInCM, ArrowHead arrowHead, Fletching fletching)
     {
         _lengthInCM = lengthInCM;
